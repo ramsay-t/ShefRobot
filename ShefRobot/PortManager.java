@@ -8,13 +8,13 @@ abstract class PortManager implements Runnable {
     private Thread thread;
     private Thread parentThread;
     private Semaphore actSem;
-    private LinkedList <String> actions;
+    private LinkedList<String> actions;
     private boolean killflag;
 
     public PortManager(Thread parentThread) {
         this.parentThread = parentThread;
         actSem = new Semaphore(1);
-        actions = new LinkedList <String> ();
+        actions = new LinkedList<String>();
         killflag = false;
         thread = new Thread(this);
         thread.start();
