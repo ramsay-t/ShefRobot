@@ -14,8 +14,8 @@ public class Robot {
 
     private RemoteEV3 ev3;
 
-    private HashMap <Motor.Port, Motor> motors;
-    private HashMap <Sensor.Port, Sensor> sensors;
+    private HashMap<Motor.Port,Motor> motors;
+    private HashMap<Sensor.Port,Sensor> sensors;
 
     /** Create a new Robot object.
 
@@ -93,7 +93,7 @@ public class Robot {
      */
     public void close() {
         // Clone the maps to avoid concurrent modification problems.
-        HashMap < Motor.Port, Motor > ms = new HashMap < Motor.Port, Motor > (this.motors);
+        HashMap<Motor.Port,Motor> ms = new HashMap<Motor.Port,Motor>(this.motors);
         for (Motor.Port p: ms.keySet()) {
             this.closeMotor(p);
             Motor m = ms.get(p);
@@ -102,7 +102,7 @@ public class Robot {
                 m.getThread().join();
             } catch (InterruptedException e) {}
         }
-        HashMap < Sensor.Port, Sensor > ss = new HashMap < Sensor.Port, Sensor > (this.sensors);
+        HashMap<Sensor.Port,Sensor> ss = new HashMap<Sensor.Port,Sensor>(this.sensors);
         for (Sensor.Port p: ss.keySet()) {
             Sensor s = this.sensors.get(p);
             s.close();
@@ -148,8 +148,8 @@ public class Robot {
 
     // Centralised setup method that is called by the constructors after finding IPs etc.
     private void setup(String ip) {
-        this.motors = new HashMap <Motor.Port, Motor> ();
-        this.sensors = new HashMap <Sensor.Port, Sensor> ();
+        this.motors = new HashMap<Motor.Port,Motor>();
+        this.sensors = new HashMap<Sensor.Port,Sensor>();
         try {
             this.ev3 = new RemoteEV3(ip);
         } catch (Exception e) {
