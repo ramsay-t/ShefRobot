@@ -74,7 +74,15 @@ public class Robot {
         }
         return m;
     }
-
+    /** 
+     * Get a Speaker object
+     * You can use a Speaker for playing tones through the Robot
+     * @return The Speaker object. 
+     * @see Speaker
+    **/
+    public Speaker getSpeaker() {
+      return new Speaker(this.ev3);
+    }
     /** Get a Sensor object attached to the specified port.
 
      If a Sensor is already attached to this port then this function will retern a reference
