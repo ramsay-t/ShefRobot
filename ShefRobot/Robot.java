@@ -102,7 +102,23 @@ public class Robot {
         }
         return s;
     }
-
+    //This javadoc comment is a direct rip from the Java source with unnecessary details removed.
+    /**
+     * Causes the currently executing thread to sleep (temporarily cease
+     * execution) for the specified number of milliseconds, subject to
+     * the precision and accuracy of system timers and schedulers.
+     *
+     * @param  millis
+     *         the length of time to sleep in milliseconds
+     *
+     * @throws  IllegalArgumentException
+     *          if the value of {@code millis} is negative
+     */
+    public static void sleep(long millis){
+        try{
+            Thread.sleep(millis);
+        }catch(InterruptedException ie){}
+    }
     /** Close a Robot's connections.    
      */
     public void close() {
