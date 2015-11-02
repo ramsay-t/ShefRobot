@@ -79,7 +79,7 @@ public class Speaker
         }
     }
     /**
-     * Plays an 8-bit PWM (pulse width modulated) .wav file through the robots speaker
+     * Plays an 8-bit PCM (pulse-code modulated) .wav file through the robots speaker
      * @param file A file object that points to the .wav file to be played.
      * @return The number of milliseconds the sample will play for, or &lt; 0 if there if an error occurs.
      * @throws IllegalArgumentException When {@code file} is not a wav file.
