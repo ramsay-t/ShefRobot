@@ -17,6 +17,12 @@ public class Robot {
     private HashMap<Motor.Port,Motor> motors;
     private HashMap<Sensor.Port,Sensor> sensors;
 
+    /** Thread is used to gracefully exit when program shuts down
+     * Instantiated and linked in setup()
+     * Unlinked during close() if unused
+    */
+    private GracefulExiter shutdownHook;
+    
     /** Create a new Robot object.
 
     This will find the first available EV3 on the local network or Bluetooth. 
@@ -111,6 +117,18 @@ public class Robot {
             } catch (InterruptedException e) {}
         }
         this.sensors = new HashMap < Sensor.Port, Sensor > ();
+        
+        //Remove shutdown hook to prevent weird behaviour if user manually shuts down robot
+        try {
+            if (shutdownHook!=null)
+                Runtime.getRuntime().removeShutdownHook(shutdownHook);
+            shutdownHook=null;
+        } catch (IllegalStateException e) {
+            //Do nothing, IllegalStateException will occur if JVM is process of shutting down
+            //The alternative is alot of code to detect that JVM is shutting down.
+        } catch (Exception e) {
+            //Other errors are likely harmless to
+        }
     }
 
     /** This method allows you to close one Motor connection. 
@@ -152,9 +170,29 @@ public class Robot {
         this.sensors = new HashMap<Sensor.Port,Sensor>();
         try {
             this.ev3 = new RemoteEV3(ip);
+            try {
+                shutdownHook = new GracefulExiter(this);
+                Runtime.getRuntime().addShutdownHook(shutdownHook);
+            } catch (SecurityException e) {
+                System.err.println("Oops, it appears we aren't allowed to create a shutdown hook!");
+                System.err.println("Please report this error to Ramsay Taylor (r.g.taylor@shef...)");
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
+    
+    //Inner class for gracefully ending communication with robot to prevent the need for manual reboot
+    class GracefulExiter extends Thread
+    {
+        private Robot parent;
+        public GracefulExiter(Robot parent)
+        {
+            this.parent=parent;
+        }
+        public void run() 
+        {
+            parent.close();
+        }
+    }
 }
