@@ -61,7 +61,8 @@ public class Speaker
         }
     }
     /**
-     * Plays a tone of the specified frequency and duration through the robots speaker
+     * Synchronously plays a tone of the specified frequency and duration through the robots speaker
+     * (The current thread will be stalled whilst tone is playing)
      * @param freq The frequency of the tone in Hertz (Hz).
      * @param duration The duration of the tone, in milliseconds (ms).
      * @throws IllegalArgumentException When {@code freq} or {@code duration} arguments are below 1.
@@ -78,30 +79,30 @@ public class Speaker
             speaker.playTone(freq, duration);
         }
     }
-    /**
-     * Plays an 8-bit PCM (pulse-code modulated) .wav file through the robots speaker
-     * @param file A file object that points to the .wav file to be played.
-     * @return The number of milliseconds the sample will play for, or &lt; 0 if there if an error occurs.
-     * @throws IllegalArgumentException When {@code file} is not a wav file.
-     * @throws FileNotFoundException When {@code file} does not exist.
-     * @throws IOException  When read access to the passed file cannot be gained.
-    **/
-    public int playWAV(final File file) throws FileNotFoundException, IOException
-    {
-        if(!file.exists()) {
-            throw new FileNotFoundException("File does not exist: "+file.toString());
-        }
-        else if(!file.isFile()) {
-            throw new IllegalArgumentException("Invalid file argument: "+file.toString()+"\n Is not a file (its probably a directory?).");
-        }///Should test whether ev3 rejects wavs named .wave
-        else if(!((file.getName().toLowerCase().endsWith(".wav"))||(file.getName().toLowerCase().endsWith(".wave")))) {
-            throw new IllegalArgumentException("Invalid file argument: "+file.toString()+"\n Is not a .wav file.");
-        }
-        else if(!file.canRead()) {
-            throw new IOException("Cannot get read access to file: "+file.toString());
-        }
-        else{
-            return speaker.playSample(file);
-        }
-    }
+    // /**
+     // * Plays an 8-bit PCM (pulse-code modulated) .wav file through the robots speaker
+     // * @param file A file object that points to the .wav file to be played.
+     // * @return The number of milliseconds the sample will play for, or &lt; 0 if there if an error occurs.
+     // * @throws IllegalArgumentException When {@code file} is not a wav file.
+     // * @throws FileNotFoundException When {@code file} does not exist.
+     // * @throws IOException  When read access to the passed file cannot be gained.
+    // **/
+    // public int playWAV(final File file) throws FileNotFoundException, IOException
+    // {
+        // if(!file.exists()) {
+            // throw new FileNotFoundException("File does not exist: "+file.toString());
+        // }
+        // else if(!file.isFile()) {
+            // throw new IllegalArgumentException("Invalid file argument: "+file.toString()+"\n Is not a file (its probably a directory?).");
+        // }///Should test whether ev3 rejects wavs named .wave
+        // else if(!((file.getName().toLowerCase().endsWith(".wav"))||(file.getName().toLowerCase().endsWith(".wave")))) {
+            // throw new IllegalArgumentException("Invalid file argument: "+file.toString()+"\n Is not a .wav file.");
+        // }
+        // else if(!file.canRead()) {
+            // throw new IOException("Cannot get read access to file: "+file.toString());
+        // }
+        // else{
+            // return speaker.playSample(file);
+        // }
+    // }
 }
