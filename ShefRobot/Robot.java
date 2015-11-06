@@ -83,6 +83,15 @@ public class Robot {
     public Speaker getSpeaker() {
       return new Speaker(this.ev3);
     }
+    /** 
+     * Get a Buttons object
+     * You can use Buttons for creating ButtonListeners and waiting for ButtonPresses
+     * @return The Buttons object. 
+     * @see Buttons
+    **/
+    public Buttons getButtons() {
+      return new Buttons(this.ev3);
+    }
     /** Get a Sensor object attached to the specified port.
 
      If a Sensor is already attached to this port then this function will retern a reference
