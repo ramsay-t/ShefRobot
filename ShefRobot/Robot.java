@@ -23,6 +23,14 @@ public class Robot {
     */
     private GracefulExiter shutdownHook;
     
+    /*
+     * Internal speaker member returned by getSpeaker()
+    **/
+    private Speaker speaker;
+    /*
+     * Internal buttons member returned by getButtons()
+    **/
+    private Buttons buttons;
     /** Create a new Robot object.
 
     This will find the first available EV3 on the local network or Bluetooth. 
@@ -46,6 +54,8 @@ public class Robot {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        speaker = new Speaker(ev3);
+        buttons = new Buttons(ev3);
     }
 
     /** Create a new Robot object with a specific IP address.
@@ -74,7 +84,24 @@ public class Robot {
         }
         return m;
     }
-
+    /** 
+     * Get a Speaker object
+     * You can use a Speaker for playing tones through the Robot
+     * @return The Speaker object. 
+     * @see Speaker
+    **/
+    public Speaker getSpeaker() {
+      return speaker;
+    }
+    /** 
+     * Get a Buttons object
+     * You can use Buttons for creating ButtonListeners and waiting for ButtonPresses
+     * @return The Buttons object. 
+     * @see Buttons
+    **/
+    public Buttons getButtons() {
+      return buttons;
+    }
     /** Get a Sensor object attached to the specified port.
 
      If a Sensor is already attached to this port then this function will retern a reference
@@ -94,7 +121,23 @@ public class Robot {
         }
         return s;
     }
-
+    //This javadoc comment is a direct rip from the Java source with unnecessary details removed.
+    /**
+     * Causes the currently executing thread to sleep (temporarily cease
+     * execution) for the specified number of milliseconds, subject to
+     * the precision and accuracy of system timers and schedulers.
+     *
+     * @param  millis
+     *         the length of time to sleep in milliseconds
+     *
+     * @throws  IllegalArgumentException
+     *          if the value of {@code millis} is negative
+     */
+    public static void sleep(long millis){
+        try{
+            Thread.sleep(millis);
+        }catch(InterruptedException ie){}
+    }
     /** Close a Robot's connections.    
      */
     public void close() {
