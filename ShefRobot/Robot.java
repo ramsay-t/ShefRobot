@@ -23,6 +23,14 @@ public class Robot {
     */
     private GracefulExiter shutdownHook;
     
+    /*
+     * Internal speaker member returned by getSpeaker()
+    **/
+    private Speaker speaker;
+    /*
+     * Internal buttons member returned by getButtons()
+    **/
+    private Buttons buttons;
     /** Create a new Robot object.
 
     This will find the first available EV3 on the local network or Bluetooth. 
@@ -46,6 +54,8 @@ public class Robot {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        speaker = new Speaker(ev3);
+        buttons = new Buttons(ev3);
     }
 
     /** Create a new Robot object with a specific IP address.
@@ -81,7 +91,7 @@ public class Robot {
      * @see Speaker
     **/
     public Speaker getSpeaker() {
-      return new Speaker(this.ev3);
+      return speaker;
     }
     /** 
      * Get a Buttons object
@@ -90,7 +100,7 @@ public class Robot {
      * @see Buttons
     **/
     public Buttons getButtons() {
-      return new Buttons(this.ev3);
+      return buttons;
     }
     /** Get a Sensor object attached to the specified port.
 
