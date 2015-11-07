@@ -9,13 +9,19 @@ import java.util.Map;
 public class Pair<K,V> {
 
     public final K key;
-    public final V value;
+    private V value;
 
     public Pair(K key, V value) {
         this.key = key;
         this.value = value;
     }
 
+    public V getValue(){
+        return value;
+    }
+    public void setValue(V value){
+        this.value = value;
+    }
     @Override
     public int hashCode() { 
         return key.hashCode() ^ value.hashCode(); 
@@ -25,7 +31,7 @@ public class Pair<K,V> {
     public boolean equals(Object o) {
         if (!(o instanceof Pair)) return false;
         Pair other = (Pair) o;
-        return this.key.equals(other.key) && this.value.equals(other.value);
+        return this.key.equals(other.key) && this.value.equals(other.getValue());
     }
 
 }

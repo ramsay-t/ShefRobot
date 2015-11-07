@@ -68,14 +68,15 @@ public class Robot {
 
     /** Get a Motor object attached to the specified port.
 
-    If a Motor is already attached to this port then this function will retern a reference
-    to that Motor object, otherwise a new object is created.
+    If a LargeMotor is already attached to this port then this function will retern a reference
+    to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
     @param type The type of motor. Must be from {@link Motor.Type}.
-    @return The Motor object. 
+    @return The LargeMotor object.
+    @see Motor
      */
-    public Motor getLargeMotor(Motor.Port port) {
+    public LargeMotor getLargeMotor(Motor.Port port) {
         Motor m;
         m = this.motors.get(port);
         if (m == null) {
@@ -94,14 +95,15 @@ public class Robot {
     }
     /** Get a Motor object attached to the specified port.
 
-    If a Motor is already attached to this port then this function will retern a reference
-    to that Motor object, otherwise a new object is created.
+    If a MediumMotor is already attached to this port then this function will retern a reference
+    to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
     @param type The type of motor. Must be from {@link Motor.Type}.
-    @return The Motor object. 
+    @return The MediumMotor object.
+    @see Motor 
      */
-    public Motor getMediumMotor(Motor.Port port) {
+    public MediumMotor getMediumMotor(Motor.Port port) {
         Motor m;
         m = this.motors.get(port);
         if (m == null) {
