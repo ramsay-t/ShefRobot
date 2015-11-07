@@ -4,8 +4,9 @@ import lejos.remote.ev3.*;
 import lejos.hardware.*;
 import lejos.robotics.*;
 import java.rmi.*;
+import ShefRobot.util.*;
 
-public class Sensor extends PortManager {
+public class Sensor extends PortManager<String> {
 
     public enum Port {
         S1, S2, S3, S4
@@ -61,7 +62,8 @@ public class Sensor extends PortManager {
 
     /** Closes and cleans up the connection. 
      */
-    public void close() {
+    @Override
+    protected void close() {
         this.kill();
         if (this.sensor != null) {
             try {
