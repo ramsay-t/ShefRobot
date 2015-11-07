@@ -345,7 +345,7 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
                     act.setValue(this.motor.isStalled()?1:0);
                     break;
                 default:
-                    System.err.println("[" + this.port.name() + "] Asked for Action: " + act + " on a Motor...");
+                    System.err.println("[" + this.port.name() + "] Asked for Action: " + act.key + " on a Motor...");
             }
         } catch (RemoteException e) {
             throw new RuntimeException(e);
