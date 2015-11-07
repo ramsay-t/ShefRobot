@@ -3,18 +3,18 @@ package ShefRobot;
 import java.util.*;
 import java.util.concurrent.*;
 
-abstract class PortManager implements Runnable {
+abstract class PortManager<T> implements Runnable {
 
     private Thread thread;
     private Thread parentThread;
     private Semaphore actSem;
-    private LinkedList<String> actions;
+    private LinkedList<T> actions;
     private boolean killflag;
 
     public PortManager(Thread parentThread) {
         this.parentThread = parentThread;
         actSem = new Semaphore(1);
-        actions = new LinkedList<String>();
+        actions = new LinkedList<T>();
         killflag = false;
         thread = new Thread(this);
         thread.start();
@@ -24,7 +24,7 @@ abstract class PortManager implements Runnable {
         return thread;
     }
 
-    public void addAction(String act) {
+    public void addAction(T act) {
         try {
             actSem.acquire();
             actions.add(act);
@@ -49,7 +49,7 @@ abstract class PortManager implements Runnable {
             } else {
                 try {
                     actSem.acquire();
-                    for (String act: actions) {
+                    for (T act: actions) {
                         action(act);
                     }
                     actions.clear();
@@ -61,6 +61,6 @@ abstract class PortManager implements Runnable {
         }
     }
 
-    abstract void action(String act);
-    abstract void close();
+    abstract void action(T act);
+    protected abstract void close();
 }

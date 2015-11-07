@@ -68,21 +68,57 @@ public class Robot {
 
     /** Get a Motor object attached to the specified port.
 
-    If a Motor is already attached to this port then this function will retern a reference
-    to that Motor object, otherwise a new object is created.
+    If a LargeMotor is already attached to this port then this function will retern a reference
+    to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
     @param type The type of motor. Must be from {@link Motor.Type}.
-    @return The Motor object. 
+    @return The LargeMotor object.
+    @see Motor
      */
-    public Motor getMotor(Motor.Port port, Motor.Type type) {
+    public LargeMotor getLargeMotor(Motor.Port port) {
         Motor m;
         m = this.motors.get(port);
         if (m == null) {
-            m = new Motor(this, port, type);
+            m = new LargeMotor(this, port);
             this.motors.put(port, m);
         }
-        return m;
+        if(m instanceof LargeMotor)
+        {
+            return (LargeMotor)m;
+        }
+        else
+        {//Requesting motor of different type on same port, so recreate
+            closeMotor(port);
+            return getLargeMotor(port);
+        }
+    }
+    /** Get a Motor object attached to the specified port.
+
+    If a MediumMotor is already attached to this port then this function will retern a reference
+    to that Motor object, otherwise a new object is (re)created.
+
+    @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
+    @param type The type of motor. Must be from {@link Motor.Type}.
+    @return The MediumMotor object.
+    @see Motor 
+     */
+    public MediumMotor getMediumMotor(Motor.Port port) {
+        Motor m;
+        m = this.motors.get(port);
+        if (m == null) {
+            m = new MediumMotor(this, port);
+            this.motors.put(port, m);
+        }
+        if(m instanceof MediumMotor)
+        {
+            return (MediumMotor)m;
+        }
+        else
+        {//Requesting motor of different type on same port, so recreate
+            closeMotor(port);
+            return getMediumMotor(port);
+        }
     }
     /** 
      * Get a Speaker object
