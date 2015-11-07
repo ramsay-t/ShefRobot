@@ -68,7 +68,7 @@ public class Robot {
 
     /** Get a Motor object attached to the specified port.
 
-    If a LargeMotor is already attached to this port then this function will retern a reference
+    If a LargeMotor is already attached to this port, then this function will retern a reference
     to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
@@ -95,7 +95,7 @@ public class Robot {
     }
     /** Get a Motor object attached to the specified port.
 
-    If a MediumMotor is already attached to this port then this function will retern a reference
+    If a MediumMotor is already attached to this port, then this function will retern a reference
     to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
@@ -138,24 +138,57 @@ public class Robot {
     public Buttons getButtons() {
       return buttons;
     }
-    /** Get a Sensor object attached to the specified port.
+    /** Get an UltrasonicSensor object attached to the specified port.
 
-     If a Sensor is already attached to this port then this function will retern a reference
+     If an UltrasonicSensor is already attached to this port, then this function will retern a reference
      to that Sensor object, otherwise a new object is created.
 
     @param port The port to which the motor is connected. Must be from {@link Sensor.Port}.
     @param type The type of sensor. Must be from {@link Sensor.Type}.
-    @return The Sensor object.
+    @return The UltrasonicSensor object.
      */
-
-    public Sensor getSensor(Sensor.Port port, Sensor.Type type) {
+    public UltrasonicSensor getUltrasonicSensor(Sensor.Port port) {     
         Sensor s;
-        s = this.sensors.get(port);
+         s = this.sensors.get(port);
         if (s == null) {
-            s = new Sensor(this, port, type);
+            s = new UltrasonicSensor(this, port);
             this.sensors.put(port, s);
         }
-        return s;
+        if(s instanceof UltrasonicSensor)
+        {
+            return (UltrasonicSensor)s;
+        }
+        else
+        {//Requesting sensor of different type on same port, so recreate
+            closeSensor(port);
+            return getUltrasonicSensor(port);
+        }
+    }
+    /** Get an TouchSensor object attached to the specified port.
+
+     If an TouchSensor is already attached to this port, then this function will retern a reference
+     to that Sensor object, otherwise a new object is created.
+
+    @param port The port to which the motor is connected. Must be from {@link Sensor.Port}.
+    @param type The type of sensor. Must be from {@link Sensor.Type}.
+    @return The TouchSensor object.
+     */
+    public TouchSensor getTouchSensor(Sensor.Port port) {     
+        Sensor s;
+         s = this.sensors.get(port);
+        if (s == null) {
+            s = new TouchSensor(this, port);
+            this.sensors.put(port, s);
+        }
+        if(s instanceof TouchSensor)
+        {
+            return (TouchSensor)s;
+        }
+        else
+        {//Requesting sensor of different type on same port, so recreate
+            closeSensor(port);
+            return getTouchSensor(port);
+        }
     }
     //This javadoc comment is a direct rip from the Java source with unnecessary details removed.
     /**
@@ -189,7 +222,8 @@ public class Robot {
         }
         HashMap<Sensor.Port,Sensor> ss = new HashMap<Sensor.Port,Sensor>(this.sensors);
         for (Sensor.Port p: ss.keySet()) {
-            Sensor s = this.sensors.get(p);
+            this.closeSensor(p);
+            Sensor s = ss.get(p);
             s.close();
             try {
                 s.getThread().join();
