@@ -85,7 +85,7 @@ public class Robot {
         }
         if(m instanceof LargeMotor)
         {
-            return m;
+            return (LargeMotor)m;
         }
         else
         {//Requesting motor of different type on same port, so recreate
@@ -112,7 +112,7 @@ public class Robot {
         }
         if(m instanceof MediumMotor)
         {
-            return m;
+            return (MediumMotor)m;
         }
         else
         {//Requesting motor of different type on same port, so recreate

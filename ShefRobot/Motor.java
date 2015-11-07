@@ -7,7 +7,7 @@ import java.rmi.*;
 import ShefRobot.util.*;
 import ShefRobot.*;
 
-enum Action {
+enum MotorAction {
     FORWARD, BACKWARD, STOP, SET_SPEED, ROTATE, ROTATE_ASYNC, ROTATE_TO, ROTATE_TO_ASYNC, RESET_TACHO, GET_SPEED, GET_MAX_SPEED, GET_TACHO_COUNT, GET_IS_STALLED, GET_IS_MOVING;
 }
 /**
@@ -19,7 +19,7 @@ enum Action {
  * @see Robot#getLargeMotor()
  * @see Robot#getMediumMotor()
 **/
-public abstract class Motor extends PortManager<Pair<Action, Integer>>
+public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
 {
     /**
      * These represent the physical ports on the robot which Motors can be connected to
@@ -91,27 +91,27 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
      * The motor will continue rotating until {@link Motor#stop()} is called.
     **/
     public void forward() {
-        this.addAction(new Pair<Action, Integer>(Action.FORWARD, 0));
+        this.addAction(new Pair<MotorAction, Integer>(MotorAction.FORWARD, 0));
     }
     /**
      * Tells the motor to rotate backwards
      * The motor will continue rotating until {@link Motor#stop()} is called.
     **/
     public void backward() {
-        this.addAction(new Pair<Action, Integer>(Action.BACKWARD, 0));
+        this.addAction(new Pair<MotorAction, Integer>(MotorAction.BACKWARD, 0));
     }
     /**
      * Tells the motor to stop moving
     **/
     public void stop() {
-        this.addAction(new Pair<Action, Integer>(Action.STOP, 0));
+        this.addAction(new Pair<MotorAction, Integer>(MotorAction.STOP, 0));
     }
     /**
      * Resets the value returned by {@link Motor#getTachoCount()} to 0
     **/
     public void resetTachoCount()
     {
-        this.addAction(new Pair<Action, Integer>(Action.RESET_TACHO, 0));
+        this.addAction(new Pair<MotorAction, Integer>(MotorAction.RESET_TACHO, 0));
     }
     /**
      * Returns the cumulative number of degrees the motor has turned since {@link Motor#resetTachoCount()} was last called.
@@ -119,7 +119,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     **/
     public int getTachoCount()
     {
-        Pair <Action, Integer> action = new Pair<Action, Integer>(Action.GET_TACHO_COUNT, null);
+        Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.GET_TACHO_COUNT, null);
         this.addAction(action);
         while (action.getValue() == null) {
             try {
@@ -140,7 +140,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
         //Catch this because negative speeds are Math.abs by the internal robot
         if(newSpeed<0)
             throw new IllegalArgumentException("Invalid speed argument: "+newSpeed+"\n Speeds should not be negative (try using the backward() method).");
-        this.addAction(new Pair<Action, Integer>(Action.SET_SPEED, newSpeed));
+        this.addAction(new Pair<MotorAction, Integer>(MotorAction.SET_SPEED, newSpeed));
     }
     /**
      * Returns the speed of the Motor
@@ -148,7 +148,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     **/
     public int getSpeed()
     {
-        Pair <Action, Integer> action = new Pair<Action, Integer>(Action.GET_SPEED, null);
+        Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.GET_SPEED, null);
         this.addAction(action);
         while (action.getValue() == null) {
             try {
@@ -165,7 +165,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     **/
     public int getMaxSpeed()
     {
-        Pair <Action, Integer> action = new Pair<Action, Integer>(Action.GET_MAX_SPEED, null);
+        Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.GET_MAX_SPEED, null);
         this.addAction(action);
         while (action.getValue() == null) {
             try {
@@ -180,7 +180,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     **/
     public boolean isMoving()
     {
-        Pair <Action, Integer> action = new Pair<Action, Integer>(Action.GET_IS_MOVING, null);
+        Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.GET_IS_MOVING, null);
         this.addAction(action);
         while (action.getValue() == null) {
             try {
@@ -195,7 +195,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     **/
     public boolean isStalled()
     {
-        Pair <Action, Integer> action = new Pair<Action, Integer>(Action.GET_IS_STALLED, null);
+        Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.GET_IS_STALLED, null);
         this.addAction(action);
         while (action.getValue() == null) {
             try {
@@ -228,10 +228,10 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     public void rotate(int degrees, boolean async)
     {  
         if(async) {
-            this.addAction(new Pair<Action, Integer>(Action.ROTATE_TO_ASYNC, degrees));
+            this.addAction(new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO_ASYNC, degrees));
         }
         else {
-            Pair <Action, Integer> action = new Pair<Action, Integer>(Action.ROTATE_TO, degrees);
+            Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO, degrees);
             this.addAction(action);
             while (action.getValue() != null) {
                 try {
@@ -265,10 +265,10 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
     public void rotateTo(int degrees, boolean async)
     {
         if(async) {
-            this.addAction(new Pair<Action, Integer>(Action.ROTATE_TO_ASYNC, degrees));
+            this.addAction(new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO_ASYNC, degrees));
         }
         else {
-            Pair <Action, Integer> action = new Pair<Action, Integer>(Action.ROTATE_TO, degrees);
+            Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO, degrees);
             this.addAction(action);
             while (action.getValue() != null) {
                 try {
@@ -294,7 +294,7 @@ public abstract class Motor extends PortManager<Pair<Action, Integer>>
      * @param act {@code act.key} is read-only and specifies the {@code Action} to be carried out
      * @param act {@code act.value} can specify an argument for the {@code Action} or be used for returning values.
     **/
-    protected void action(Pair<Action, Integer> act) {
+    protected void action(Pair<MotorAction, Integer> act) {
         if (this.motor == null) {
             makeMotor();
         }
