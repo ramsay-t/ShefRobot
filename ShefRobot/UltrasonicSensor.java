@@ -15,8 +15,8 @@ enum UltrasonicSensorAction{
     GET_VALUE, GET_DISTANCE, GET_LISTEN, ENABLE, DISABLE, GET_STATE;
 }
 /**
- * This class represents an EV3 UltrasonicSensor which has two modes of operation {@link UltrasonicSensor#Mode.Distance} and {@link UltrasonicSensor#Mode.Listen}
- * By default the sensor starts in {@link UltrasonicSensor#Mode.Distance} mode.
+ * This class represents an EV3 UltrasonicSensor which has two modes of operation {@link UltrasonicSensor.Mode#DISTANCE} and {@link UltrasonicSensor.Mode#LISTEN}
+ * By default the sensor starts in {@link UltrasonicSensor.Mode#DISTANCE} mode.
 **/
 public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
 {

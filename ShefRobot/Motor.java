@@ -16,8 +16,8 @@ enum MotorAction {
  * This allows the motor objects to be calibrated correctly.
  * 
  * Any methods called on the same Motor will occur in order unless a method is otherwise stated as being asynchronous
- * @see Robot#getLargeMotor()
- * @see Robot#getMediumMotor()
+ * @see Robot#getLargeMotor(Motor.Port)
+ * @see Robot#getMediumMotor(Motor.Port)
 **/
 public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
 {
@@ -131,9 +131,9 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
     /**
      * Sets the speed of the Motor
      * The lowest accepted value is 0
-     * The motors maximum speed can be found using {@link Robot#getMaxSpeed()}
+     * The motors maximum speed can be found using {@link Motor#getMaxSpeed()}
      * @param newSpeed The speed of the motor, this value must not be negative
-     * @throwsd IllegalArgumentException When newSpeed is negative
+     * @throws IllegalArgumentException When newSpeed is negative
      **/
     public void setSpeed(final int newSpeed)
     {
@@ -144,7 +144,7 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
     }
     /**
      * Returns the speed of the Motor
-     * @param newSpeed The speed of the motor
+     * @return The speed of the motor
     **/
     public int getSpeed()
     {

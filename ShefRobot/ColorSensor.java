@@ -15,8 +15,8 @@ enum ColorSensorAction{
     GET_VALUE, GET_COLOR, GET_AMBIENT, GET_RED, GET_RGB, GET_FLOODLIGHT_STATE, SET_FLOODLIGHT_STATE;
 }
 /**
- * This class represents an EV3 ColorSensor which has four modes of operation {@link ColorSensor#Mode.COLOR}, {@link ColorSensor#Mode.RED}, {@link ColorSensor#Mode.RGB} and {@link ColorSensor#Mode.AMBIENT}
- * By default the sensor starts in {@link ColorSensor#Mode.RED} mode.
+ * This class represents an EV3 ColorSensor which has four modes of operation {@link ColorSensor.Mode#COLOR}, {@link ColorSensor.Mode#RED}, {@link ColorSensor.Mode#RGB} and {@link ColorSensor.Mode#AMBIENT}
+ * By default the sensor starts in {@link ColorSensor.Mode#RED} mode.
 **/
 public class ColorSensor extends Sensor<ColorSensorAction>
 {
@@ -141,9 +141,9 @@ public class ColorSensor extends Sensor<ColorSensorAction>
         }
     }
     /**
-     * Returns the colour detected by the sensor as one of the {@link ColorSensor#Color} values.
+     * Returns the colour detected by the sensor as one of the {@link ColorSensor.Color} values.
      * If not already in color mode, this will switch the sensor into color mode (enabling the white [rgb] light).
-     * @return Returns a Color enum
+     * @return Returns a {@link ColorSensor.Color} enum
     **/
     public Color getColor()
     {

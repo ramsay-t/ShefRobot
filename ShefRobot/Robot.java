@@ -72,7 +72,6 @@ public class Robot {
     to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
-    @param type The type of motor. Must be from {@link Motor.Type}.
     @return The LargeMotor object.
     @see Motor
      */
@@ -99,7 +98,6 @@ public class Robot {
     to that Motor object, otherwise a new object is (re)created.
 
     @param port The port to which the motor is connected. Must be from {@link Motor.Port}.
-    @param type The type of motor. Must be from {@link Motor.Type}.
     @return The MediumMotor object.
     @see Motor 
      */
@@ -144,7 +142,6 @@ public class Robot {
      to that Sensor object, otherwise a new object is created.
 
     @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
-    @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The UltrasonicSensor object.
      */
     public UltrasonicSensor getUltrasonicSensor(Sensor.Port port) {     
@@ -170,7 +167,6 @@ public class Robot {
      to that Sensor object, otherwise a new object is created.
 
     @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
-    @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The TouchSensor object.
      */
     public TouchSensor getTouchSensor(Sensor.Port port) {     
@@ -196,7 +192,6 @@ public class Robot {
      to that Sensor object, otherwise a new object is created.
 
     @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
-    @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The ColorSensor object.
      */
     public ColorSensor getColorSensor(Sensor.Port port) {     
@@ -222,7 +217,6 @@ public class Robot {
      to that Sensor object, otherwise a new object is created.
 
     @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
-    @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The GyroSensor object.
      */
     public GyroSensor getGyroSensor(Sensor.Port port) {     
