@@ -216,6 +216,32 @@ public class Robot {
             return getColorSensor(port);
         }
     }
+    /** Get a GyroSensor object attached to the specified port.
+
+     If a GyroSensor is already attached to this port, then this function will retern a reference
+     to that Sensor object, otherwise a new object is created.
+
+    @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
+    @param type The type of sensor. Must be from {@link Sensor.Type}.
+    @return The GyroSensor object.
+     */
+    public GyroSensor getGyroSensor(Sensor.Port port) {     
+        Sensor s;
+         s = this.sensors.get(port);
+        if (s == null) {
+            s = new GyroSensor(this, port);
+            this.sensors.put(port, s);
+        }
+        if(s instanceof GyroSensor)
+        {
+            return (GyroSensor)s;
+        }
+        else
+        {//Requesting sensor of different type on same port, so recreate
+            closeSensor(port);
+            return getGyroSensor(port);
+        }
+    }
     //This javadoc comment is a direct rip from the Java source with unnecessary details removed.
     /**
      * Causes the currently executing thread to sleep (temporarily cease

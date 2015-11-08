@@ -20,7 +20,7 @@ public abstract class Sensor<T> extends PortManager<Pair<T,float[]>> {
     enum Type {
         TOUCH("lejos.hardware.sensor.EV3TouchSensor", new String[]{"Touch"}), 
         ULTRASOUND("lejos.hardware.sensor.EV3UltrasonicSensor", new String[]{"Distance", "Listen"}),
-        //GYRO("lejos.hardware.sensor.EV3GyroSensor", new String[]{"Angle and Rate", "Angle", "Rate"}), 
+        GYRO("lejos.hardware.sensor.EV3GyroSensor", new String[]{"Angle and Rate", "Angle", "Rate"}), 
         COLOR("lejos.hardware.sensor.EV3ColorSensor", new String[]{"ColorID", "Red", "RGB", "Ambient"});
         //INFRARED("lejos.hardware.sensor.EV3IRSensor", new String[]{"Seek", "Distance"});
         public final String absoluteClass;
