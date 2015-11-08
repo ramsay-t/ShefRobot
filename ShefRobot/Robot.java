@@ -143,7 +143,7 @@ public class Robot {
      If an UltrasonicSensor is already attached to this port, then this function will retern a reference
      to that Sensor object, otherwise a new object is created.
 
-    @param port The port to which the motor is connected. Must be from {@link Sensor.Port}.
+    @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
     @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The UltrasonicSensor object.
      */
@@ -169,7 +169,7 @@ public class Robot {
      If an TouchSensor is already attached to this port, then this function will retern a reference
      to that Sensor object, otherwise a new object is created.
 
-    @param port The port to which the motor is connected. Must be from {@link Sensor.Port}.
+    @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
     @param type The type of sensor. Must be from {@link Sensor.Type}.
     @return The TouchSensor object.
      */
@@ -188,6 +188,32 @@ public class Robot {
         {//Requesting sensor of different type on same port, so recreate
             closeSensor(port);
             return getTouchSensor(port);
+        }
+    }
+    /** Get a ColorSensor object attached to the specified port.
+
+     If a ColorSensor is already attached to this port, then this function will retern a reference
+     to that Sensor object, otherwise a new object is created.
+
+    @param port The port to which the sensor is connected. Must be from {@link Sensor.Port}.
+    @param type The type of sensor. Must be from {@link Sensor.Type}.
+    @return The ColorSensor object.
+     */
+    public ColorSensor getColorSensor(Sensor.Port port) {     
+        Sensor s;
+         s = this.sensors.get(port);
+        if (s == null) {
+            s = new ColorSensor(this, port);
+            this.sensors.put(port, s);
+        }
+        if(s instanceof ColorSensor)
+        {
+            return (ColorSensor)s;
+        }
+        else
+        {//Requesting sensor of different type on same port, so recreate
+            closeSensor(port);
+            return getColorSensor(port);
         }
     }
     //This javadoc comment is a direct rip from the Java source with unnecessary details removed.
