@@ -45,7 +45,7 @@ Documentation for the library can be found on the [repositories GitHub pages](ht
 If you would prefer to generate your own local copy, call the below command from this directory.
 
 ```bat
-javadoc -d docs -public -link http://docs.oracle.com/javase/8/docs/api/ -link http://www.lejos.org/ev3/docs/ -subpackages ShefRobot -windowtitle "ShefRobot API"
+javadoc -d docs -public -link http://docs.oracle.com/javase/8/docs/api/ -link http://www.lejos.org/ev3/docs/ -subpackages ShefRobot -windowtitle "ShefRobot API" -overview "ShefRobot/overview.html"
 ```
 
 ##License
