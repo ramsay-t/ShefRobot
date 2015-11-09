@@ -2,7 +2,7 @@ package ShefRobot;
 /**
  * Listener interface for catching Button press and release events.
  * The methods for connecting ButtonListener's have been disabled due to inconsistent behaviour
- * @see Buttons.addListener(Buttons.Button)
+ // * @see Buttons#addListener(Buttons.Button)
 **/
 public abstract interface ButtonListener
 {
