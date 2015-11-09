@@ -42,7 +42,7 @@ public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
     }
     protected UltrasonicSensor(Robot robot, Port port)
     {
-        super(robot, port, Sensor.Type.TOUCH, new EV3UltrasonicSensor(robot.getEV3().getPort(port.name())));
+        super(robot, port, Sensor.Type.TOUCH);
         setMode(Mode.DISTANCE);
     }
     /**

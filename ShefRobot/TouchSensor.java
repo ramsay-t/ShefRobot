@@ -28,7 +28,7 @@ public class TouchSensor extends Sensor<TouchSensorAction>
     }
     protected TouchSensor(Robot robot, Port port)
     {
-        super(robot, port, Sensor.Type.TOUCH, new EV3TouchSensor(robot.getEV3().getPort(port.name())));
+        super(robot, port, Sensor.Type.TOUCH);
     }
     public boolean isTouched()
     {

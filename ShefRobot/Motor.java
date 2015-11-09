@@ -287,6 +287,11 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
             System.err.println("Failed to open the motor port. The most likely reason is that the previous program failed to shut down correctly and free the port. You will have to restart the EV3. Sorry :(");
             throw new RuntimeException("Failed to open Motor port " + this.port.name());
         }
+        catch(IllegalArgumentException iae)
+        {
+            System.err.println("Motor: "+type+" not found connected to port "+port+"!");
+            throw new RuntimeException("Please connect the motor correctly and try again.");
+        }
     }
     /**
      * Carrys out the parameterised action

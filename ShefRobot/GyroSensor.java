@@ -21,7 +21,7 @@ public class GyroSensor extends Sensor<GyroSensorAction>
 
     protected GyroSensor(Robot robot, Port port)
     {
-        super(robot, port, Sensor.Type.GYRO, new EV3GyroSensor(robot.getEV3().getPort(port.name())));
+        super(robot, port, Sensor.Type.GYRO);
     }
 
 

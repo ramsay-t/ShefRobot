@@ -2,7 +2,7 @@ package ShefRobot;
 
 import lejos.remote.ev3.*;
 import lejos.hardware.*;
-import lejos.hardware.sensor.BaseSensor;
+import lejos.hardware.sensor.*;
 import lejos.robotics.*;
 import java.rmi.*;
 import ShefRobot.util.*;
@@ -51,12 +51,41 @@ public abstract class Sensor<T> extends PortManager<Pair<T,float[]>> {
     @param type The type of sensor.
 
      */
-    protected Sensor(Robot robot, Port port, Type type, BaseSensor sensor) {
+    protected Sensor(Robot robot, Port port, Type type) {
         super(Thread.currentThread());
         this.parentRobot = robot;
         this.port = port;
         this.type = type;
-        this.sensor = sensor;
+        try
+        {
+            switch(type)
+            {
+                case COLOR:
+                    this.sensor = new EV3ColorSensor(robot.getEV3().getPort(port.name()));
+                    break;
+                case GYRO:
+                    this.sensor = new EV3GyroSensor(robot.getEV3().getPort(port.name()));
+                    break;
+                case TOUCH:
+                    this.sensor = new EV3TouchSensor(robot.getEV3().getPort(port.name()));
+                    break;
+                case ULTRASOUND:
+                    this.sensor = new EV3UltrasonicSensor(robot.getEV3().getPort(port.name()));
+                    break;
+                default:
+                    throw new RuntimeException("Unexpected sensor type: "+ type);
+            }
+        }
+        catch(lejos.hardware.DeviceException e)
+        {
+            System.err.println("Failed to open the sensor port. The most likely reason is that the previous program failed to shut down correctly and free the port. You will have to restart the EV3. Sorry :(");
+            throw new RuntimeException("Failed to open Sensor port " + this.port.name());
+        }
+        catch(IllegalArgumentException iae)
+        {
+            System.err.println("Sensor: "+type+" not found connected to port "+port+"!");
+            throw new RuntimeException("Please connect the sensor correctly and try again.");
+        }
         makeSensor();
     }
 

@@ -67,7 +67,7 @@ public class ColorSensor extends Sensor<ColorSensorAction>
     }
     protected ColorSensor(Robot robot, Port port)
     {
-        super(robot, port, Sensor.Type.COLOR, new EV3ColorSensor(robot.getEV3().getPort(port.name())));
+        super(robot, port, Sensor.Type.COLOR);
     }
     /**
      * Switches the sensor between modes
