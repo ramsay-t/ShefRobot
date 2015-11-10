@@ -7,8 +7,9 @@ import java.rmi.RemoteException;
 //import java.awt.Color;
 import lejos.hardware.sensor.EV3ColorSensor;
 /**
- * Represents a color sensor, that can be used for detecting 8 discrete colours or ambient light levels
+ * Represents a color sensor, that can be used for detecting 8 discrete colours or ambient and reflected light levels
  * Each EV3 should contain 1 color sensor
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
  * @see Sensor
 **/
 enum ColorSensorAction{
@@ -155,9 +156,9 @@ public class ColorSensor extends Sensor<ColorSensorAction>
         return Color.NONE;
     }
     /**
-     *
+     * Returns a value representative of the light intensity detected.
      * If not already in ambient mode, this will switch the sensor into ambient mode (enabling the blue light).
-     * @return Returns a value in the range 0.0-0.2
+     * @return Returns a value in the range 0.0-1.0
     **/
     public float getAmbient()
     {
@@ -178,9 +179,11 @@ public class ColorSensor extends Sensor<ColorSensorAction>
         return result[0];
     }
     /**
-     * Disabled because the sensor only seems to return (0.0, 0.0, 0.0) in this mode.
+     * Returns the colour detected by the sensor
+     * ~untested~
+     * @return The RGB value detected by the sensor as a java Color object.
     **/
-    private java.awt.Color getRGB()
+    public java.awt.Color getRGB()
     {
         float[] result = sendAction(ColorSensorAction.GET_RGB);
         //Parse returned int into the ambient light;

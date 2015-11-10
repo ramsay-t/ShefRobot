@@ -6,9 +6,9 @@ import ShefRobot.util.*;
 import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 /**
- * Represents a touch sensor
+ * Represents an ultrasonic sensor, this can be used for measuring distance infront of the sensor, or detecting other ultrasonic sensors.
  * Each EV3 should contain 1 touch sensor
- * Some {@code LargeMotor} methods are common to {@code Motor}
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
  * @see Sensor
 **/
 enum UltrasonicSensorAction{

@@ -20,11 +20,11 @@ abstract class PortManager<T> implements Runnable {
         thread.start();
     }
 
-    public Thread getThread() {
+    protected Thread getThread() {
         return thread;
     }
 
-    public void addAction(T act) {
+    protected void addAction(T act) {
         try {
             actSem.acquire();
             actions.add(act);
@@ -36,7 +36,7 @@ abstract class PortManager<T> implements Runnable {
         }
     }
 
-    public void kill() {
+    protected void kill() {
         killflag = true;
         this.thread.interrupt();
     }
@@ -61,6 +61,6 @@ abstract class PortManager<T> implements Runnable {
         }
     }
 
-    abstract void action(T act);
+    protected abstract void action(T act);
     protected abstract void close();
 }

@@ -6,8 +6,9 @@ import ShefRobot.util.*;
 import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3GyroSensor;
 /**
- * Represents a gyro sensor, that can be used for detecting 8 discrete colours or ambient light levels
- * Each EV3 should contain 1 color sensor
+ * Represents a gyro sensor, that can be used for detecting the angle and it's rate of change of the sensor.
+ * Each EV3 should contain 1 gyro sensor
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
  * @see Sensor
 **/
 enum GyroSensorAction{
