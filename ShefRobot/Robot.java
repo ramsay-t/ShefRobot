@@ -36,24 +36,45 @@ public class Robot {
     This will find the first available EV3 on the local network or Bluetooth. 
      */
     public Robot() {
-        try {
-            BrickInfo[] bricks = BrickFinder.discover();
-            if (bricks.length > 0) {
-                for (BrickInfo info: bricks) {
-                    System.out.println("EV3 found on ip: " + info.getIPAddress());
+    int errors = 0;
+        do
+        {
+            try {
+                BrickInfo[] bricks = BrickFinder.discover();
+                if (bricks.length > 0) {
+                    for (BrickInfo info: bricks) {
+                        System.out.println("EV3 found on ip: " + info.getIPAddress());
+                    }
+                    String ip = bricks[0].getIPAddress();
+                    setup(ip);
+                } else {
+                    System.out.println("No EV3s found - check your network/bluetooth connections!");
+                    throw new RuntimeException("No EV3 found.");
                 }
-                String ip = bricks[0].getIPAddress();
-                setup(ip);
-            } else {
-                System.out.println("No EV3s found - check your network/bluetooth connections!");
-                throw new RuntimeException("No EV3 found.");
+                //Reached the end of setup, exit the loop
+                break;
+            } catch (java.net.SocketTimeoutException e) {
+                System.err.println("Failed to find a, EV3 - have you checked your network/bluetooth connection??");
+                throw new RuntimeException("Failed to find a Robot");
+            } catch (Exception e) {
+                errors++;
+                if(errors<5)
+                {
+                    System.err.println("Failed to connect to EV3: "+errors+"/5 attempts.");
+                    System.err.println("Retrying in 5 seconds.");
+                    try
+                    {
+                        Thread.sleep(5000);
+                    }catch(Exception ioe){}
+                }
+                else
+                {
+                    System.err.println("Failed to connect to EV3 after 5 attempts.");
+                    System.err.println("Please check the machines bluetooth is enabled and connected to the EV3.");
+                    throw new RuntimeException(e);
+                }
             }
-        } catch (java.net.SocketTimeoutException e) {
-            System.err.println("Failed to find a, EV3 - have you checked your network/bluetooth connection??");
-            throw new RuntimeException("Failed to find a Robot");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        }while(true);//We exit the loop via a break or a thrown exception
         speaker = new Speaker(ev3);
         buttons = new Buttons(ev3);
     }
@@ -63,7 +84,13 @@ public class Robot {
     @param ip This defines the IP address of the Robot.
      */
     public Robot(String ip) {
-        setup(ip);
+        try
+        {
+            setup(ip);
+        } catch (Exception e) {
+            System.err.println("Failed to find a, EV3 - have you checked your network/bluetooth connection??");
+            throw new RuntimeException("Failed to find a Robot");
+        }
     }
 
     /** Get a Motor object attached to the specified port.
@@ -324,20 +351,16 @@ public class Robot {
     }
 
     // Centralised setup method that is called by the constructors after finding IPs etc.
-    private void setup(String ip) {
+    private void setup(String ip) throws Exception{
         this.motors = new HashMap<Motor.Port,Motor>();
         this.sensors = new HashMap<Sensor.Port,Sensor>();
+        this.ev3 = new RemoteEV3(ip);
         try {
-            this.ev3 = new RemoteEV3(ip);
-            try {
-                shutdownHook = new GracefulExiter(this);
-                Runtime.getRuntime().addShutdownHook(shutdownHook);
-            } catch (SecurityException e) {
-                System.err.println("Oops, it appears we aren't allowed to create a shutdown hook!");
-                System.err.println("Please report this error to Ramsay Taylor (r.g.taylor@shef...)");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            shutdownHook = new GracefulExiter(this);
+            Runtime.getRuntime().addShutdownHook(shutdownHook);
+        } catch (SecurityException e) {
+            System.err.println("Oops, it appears we aren't allowed to create a shutdown hook!");
+            System.err.println("Please report this error to Ramsay Taylor (r.g.taylor@shef...)");
         }
     }
     
