@@ -84,7 +84,9 @@ public abstract class Sensor<T> extends PortManager<Pair<T,float[]>> {
         catch(IllegalArgumentException iae)
         {
             System.err.println("Sensor: "+type+" not found connected to port "+port+"!");
-            throw new RuntimeException("Please connect the sensor correctly and try again.");
+            System.err.println("Please connect the sensor correctly and try again.");            
+            System.exit(1);
+            //throw new RuntimeException("Please connect the sensor correctly and try again.");
         }
         makeSensor();
     }

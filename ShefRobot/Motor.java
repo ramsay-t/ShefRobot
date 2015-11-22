@@ -291,7 +291,9 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
         catch(IllegalArgumentException iae)
         {
             System.err.println("Motor: "+type+" not found connected to port "+port+"!");
-            throw new RuntimeException("Please connect the motor correctly and try again.");
+            System.err.println("Please connect the motor correctly and try again.");            
+            System.exit(1);
+            //throw new RuntimeException("Please connect the motor correctly and try again.");
         }
     }
     /**
