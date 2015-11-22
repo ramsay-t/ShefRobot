@@ -129,7 +129,8 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
         return action.getValue();
     }
     /**
-     * Sets the speed of the Motor
+     * Sets the speed of the Motor. 
+     * If the motor is already moving, {@link Motor#forward()} or {@link Motor#backward()} must be called after.
      * The lowest accepted value is 0
      * The motors maximum speed can be found using {@link Motor#getMaxSpeed()}
      * @param newSpeed The speed of the motor, this value must not be negative
@@ -290,7 +291,9 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
         catch(IllegalArgumentException iae)
         {
             System.err.println("Motor: "+type+" not found connected to port "+port+"!");
-            throw new RuntimeException("Please connect the motor correctly and try again.");
+            System.err.println("Please connect the motor correctly and try again.");            
+            System.exit(1);
+            //throw new RuntimeException("Please connect the motor correctly and try again.");
         }
     }
     /**
