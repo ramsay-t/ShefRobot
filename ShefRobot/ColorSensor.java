@@ -10,6 +10,7 @@ import lejos.hardware.sensor.EV3ColorSensor;
  * Represents a color sensor, that can be used for detecting 8 discrete colours or ambient and reflected light levels
  * Each EV3 should contain 1 color sensor
  * If the sensor seems insensitive, please check that the EV3s battery is charged.
+ * If you are switching between sensor modes without a delay, you may receive incorrect or out of range values (e.g. Calling {@link ColorSensor.Mode#getAmbient()} directly after {@link ColorSensor.Mode#getColor()} is likely to cause {@link ColorSensor.Mode#getAmbient()} to return a bad value. This can be fixed by waiting for around 300ms after the first call to {@link ColorSensor.Mode#getAmbient()} so the sensor has time to adjust.)
  * @see Sensor
 **/
 enum ColorSensorAction{
