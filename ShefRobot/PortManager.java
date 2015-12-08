@@ -41,7 +41,7 @@ abstract class PortManager<T> implements Runnable {
         this.thread.interrupt();
     }
 
-    public void run() {
+    protected void run() {
         while (!killflag) {
             if (this.parentThread.getState() == Thread.State.TERMINATED) {
                 this.killflag = true;
