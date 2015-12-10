@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 /**
  * Represents an ultrasonic sensor, this can be used for measuring distance infront of the sensor, or detecting other ultrasonic sensors.
- * Each EV3 should contain 1 touch sensor
+ * Each EV3 should contain 1 ultrasonic sensor
  * If the sensor seems insensitive, please check that the EV3s battery is charged.
  * @see Sensor
 **/
@@ -42,7 +42,7 @@ public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
     }
     protected UltrasonicSensor(Robot robot, Port port)
     {
-        super(robot, port, Sensor.Type.TOUCH);
+        super(robot, port, Sensor.Type.ULTRASOUND);
         setMode(Mode.DISTANCE);
     }
     /**
