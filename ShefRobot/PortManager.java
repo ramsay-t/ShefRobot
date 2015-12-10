@@ -40,8 +40,10 @@ abstract class PortManager<T> implements Runnable {
         killflag = true;
         this.thread.interrupt();
     }
-
-    protected void run() {
+    /**
+     * This method is for internal use, it exists due to Sensors and Motors both extending runnable.
+    **/
+    public void run() {
         while (!killflag) {
             if (this.parentThread.getState() == Thread.State.TERMINATED) {
                 this.killflag = true;
