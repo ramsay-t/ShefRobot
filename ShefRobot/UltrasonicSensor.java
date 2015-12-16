@@ -5,18 +5,16 @@ import ShefRobot.*;
 import ShefRobot.util.*;
 import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-/**
- * Represents an ultrasonic sensor, this can be used for measuring distance infront of the sensor, or detecting other ultrasonic sensors.
- * Each EV3 should contain 1 ultrasonic sensor
- * If the sensor seems insensitive, please check that the EV3s battery is charged.
- * @see Sensor
-**/
+
 enum UltrasonicSensorAction{
     GET_VALUE, GET_DISTANCE, GET_LISTEN, ENABLE, DISABLE, GET_STATE;
 }
 /**
  * This class represents an EV3 UltrasonicSensor which has two modes of operation {@link UltrasonicSensor.Mode#DISTANCE} and {@link UltrasonicSensor.Mode#LISTEN}
  * By default the sensor starts in {@link UltrasonicSensor.Mode#DISTANCE} mode.
+ * Each EV3 should contain 1 ultrasonic sensor
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
+ * @see Sensor
 **/
 public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
 {
@@ -25,7 +23,7 @@ public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
     **/
     public enum Mode {
         /**
-         * Distance mode causes the sensor to continously send out pings which allow it to calculate distances
+         * Distance mode causes the sensor to continuously send out pings which allow it to calculate distances
         **/
         DISTANCE("Distance", 0),
         /**

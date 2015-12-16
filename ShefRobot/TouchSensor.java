@@ -5,15 +5,16 @@ import ShefRobot.*;
 import ShefRobot.util.*;
 import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3TouchSensor;
+
+enum TouchSensorAction{
+    GET_VALUE;
+}
 /**
  * Represents a touch sensor
  * Each EV3 should contain 1 touch sensor
  * Some {@code LargeMotor} methods are common to {@code Motor}
  * @see Sensor
 **/
-enum TouchSensorAction{
-    GET_VALUE;
-}
 public class TouchSensor extends Sensor<TouchSensorAction>
 {
     public enum Mode {

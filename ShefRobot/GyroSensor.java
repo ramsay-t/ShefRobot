@@ -5,17 +5,15 @@ import ShefRobot.*;
 import ShefRobot.util.*;
 import java.rmi.RemoteException;
 import lejos.hardware.sensor.EV3GyroSensor;
-/**
- * Represents a gyro sensor, that can be used for detecting the angle and it's rate of change of the sensor.
- * Each EV3 should contain 1 gyro sensor
- * If the sensor seems insensitive, please check that the EV3s battery is charged.
- * @see Sensor
-**/
 enum GyroSensorAction{
     GET_VALUE, RESET, GET_RATE, GET_ANGLE, GET_RATE_AND_ANGLE;
 }
 /**
  * This class represents an EV3 GyroSensor which can detect its angle and the rate of change
+ * Each EV3 should contain 1 gyro sensor
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
+ * ~When tested, these sensors only ever returned 0.~
+ * @see Sensor
 **/
 public class GyroSensor extends Sensor<GyroSensorAction>
 {
@@ -28,7 +26,7 @@ public class GyroSensor extends Sensor<GyroSensorAction>
 
     /**
      * Resets the Gyro sensor
-     * The sensor must be still when this method is called, else it may become miscalibrated
+     * The sensor must be still when this method is called, else it may become mis-calibrated
     **/
     public void reset()
     {
@@ -64,7 +62,7 @@ public class GyroSensor extends Sensor<GyroSensorAction>
     /**
      * Convenience method  for sending an action and waiting for a response
      * @param act The action to be sent
-     * @return The response recieved from the sensor
+     * @return The response received from the sensor
     **/ 
     private float[] sendAction(GyroSensorAction act)
     {

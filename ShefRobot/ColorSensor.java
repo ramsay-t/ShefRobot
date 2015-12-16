@@ -6,19 +6,17 @@ import ShefRobot.util.*;
 import java.rmi.RemoteException;
 //import java.awt.Color;
 import lejos.hardware.sensor.EV3ColorSensor;
-/**
- * Represents a color sensor, that can be used for detecting 8 discrete colours or ambient and reflected light levels
- * Each EV3 should contain 1 color sensor
- * If the sensor seems insensitive, please check that the EV3s battery is charged.
- * If you are switching between sensor modes without a delay, you may receive incorrect or out of range values (e.g. Calling {@link ColorSensor.Mode#getAmbient()} directly after {@link ColorSensor.Mode#getColor()} is likely to cause {@link ColorSensor.Mode#getAmbient()} to return a bad value. This can be fixed by waiting for around 300ms after the first call to {@link ColorSensor.Mode#getAmbient()} so the sensor has time to adjust.)
- * @see Sensor
-**/
+
 enum ColorSensorAction{
     GET_VALUE, GET_COLOR, GET_AMBIENT, GET_RED, GET_RGB, GET_FLOODLIGHT_STATE, SET_FLOODLIGHT_STATE;
 }
 /**
  * This class represents an EV3 ColorSensor which has four modes of operation {@link ColorSensor.Mode#COLOR}, {@link ColorSensor.Mode#RED}, {@link ColorSensor.Mode#RGB} and {@link ColorSensor.Mode#AMBIENT}
  * By default the sensor starts in {@link ColorSensor.Mode#RED} mode.
+ * Each EV3 should contain 1 color sensor
+ * If the sensor seems insensitive, please check that the EV3s battery is charged.
+ * If you are switching between sensor modes without a delay, you may receive incorrect or out of range values (e.g. Calling {@link ColorSensor.Mode#getAmbient()} directly after {@link ColorSensor.Mode#getColor()} is likely to cause {@link ColorSensor.Mode#getAmbient()} to return a bad value. This can be fixed by waiting for around 300ms after the first call to {@link ColorSensor.Mode#getAmbient()} so the sensor has time to adjust.)
+ * @see Sensor
 **/
 public class ColorSensor extends Sensor<ColorSensorAction>
 {
@@ -159,19 +157,18 @@ public class ColorSensor extends Sensor<ColorSensorAction>
     /**
      * Returns a value representative of the light intensity detected.
      * If not already in ambient mode, this will switch the sensor into ambient mode (enabling the blue light).
-     * @return Returns a value in the range 0.0-1.0
+     * @return Returns a value in the range 0.0-1.0 (although without a bright light, this value is often low)
     **/
     public float getAmbient()
     {
-        setFloodlightState(FloodlightState.BLUE);
-        float[] sample = getRawSample();//sendAction(ColorSensorAction.GET_AMBIENT);
-        //Parse returned int into the ambient light;
-        return sample[0]*5;
+        float[] result = sendAction(ColorSensorAction.GET_AMBIENT);
+        //Parse returned ambient level
+        return result[0];
     }
     /**
      * Returns the level of red reflected into the sensor
      * If not already in red mode, this will switch the sensor into red mode (enabling the red light).
-     * @return Returns a value in the range 0.0-0.5
+     * @return Returns a value in the range 0.0-1.0
     **/
     public float getRed()
     {
@@ -193,7 +190,7 @@ public class ColorSensor extends Sensor<ColorSensorAction>
     /**
      * Convenience method  for sending an action and waiting for a response
      * @param act The action to be sent
-     * @return The response recieved from the sensor
+     * @return The response received from the sensor
     **/ 
     private float[] sendAction(ColorSensorAction act)
     {
