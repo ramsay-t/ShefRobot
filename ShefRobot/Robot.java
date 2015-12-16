@@ -87,6 +87,8 @@ public class Robot {
         try
         {
             setup(ip);
+            speaker = new Speaker(ev3);
+            buttons = new Buttons(ev3);
         } catch (Exception e) {
             System.err.println("Failed to find a, EV3 - have you checked your network/bluetooth connection??");
             throw new RuntimeException("Failed to find a Robot");
