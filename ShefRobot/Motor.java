@@ -229,10 +229,10 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
     public void rotate(int degrees, boolean async)
     {  
         if(async) {
-            this.addAction(new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO_ASYNC, degrees));
+            this.addAction(new Pair<MotorAction, Integer>(MotorAction.ROTATE_ASYNC, degrees));
         }
         else {
-            Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.ROTATE_TO, degrees);
+            Pair<MotorAction, Integer> action = new Pair<MotorAction, Integer>(MotorAction.ROTATE, degrees);
             this.addAction(action);
             while (action.getValue() != null) {
                 try {
