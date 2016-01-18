@@ -43,7 +43,7 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
      * This creates a Motor object that is attached to the specified {@link Robot}, of the specified type on the specified port.
      *
      * {@link Robot#getLargeMotor} or {@link Robot#getMediumMotor} should be used rather than creating these objects directly.
-     * This allows multiple motors to be tracked, since that will keep track of multiple attempts to accessthe same motor port.
+     * This allows multiple motors to be tracked, since that will keep track of multiple attempts to access the same motor port.
      * 
      * @param robot The Robot to which the motor is attached.
      * @param port The port to which the motor is attached.
@@ -325,7 +325,7 @@ public abstract class Motor extends PortManager<Pair<MotorAction, Integer>>
                     act.setValue(null);
                     break;
                 case ROTATE_ASYNC:
-                    this.motor.rotateTo(act.getValue(), true);
+                    this.motor.rotate(act.getValue(), true);
                     break;
                 case ROTATE_TO:
                     this.motor.rotateTo(act.getValue(), false);
