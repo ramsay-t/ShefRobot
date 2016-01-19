@@ -232,7 +232,6 @@ public class ColorSensor extends Sensor<ColorSensorAction>
             case GET_AMBIENT:
                 samples = new float[((EV3ColorSensor)this.sensor).getAmbientMode().sampleSize()];
                 ((EV3ColorSensor)this.sensor).getAmbientMode().fetchSample(samples,0);
-                ((EV3ColorSensor)this.sensor).getAmbientMode().fetchSample(samples,0);
                 act.setValue(samples);
                 break;
             case GET_RED:
