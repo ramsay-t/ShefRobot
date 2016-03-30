@@ -126,8 +126,8 @@ public class UltrasonicSensor extends Sensor<UltrasonicSensorAction>
         float[] samples;
         switch (act.key) {
             case GET_VALUE:
-                samples = new float[this.sensor.sampleSize()];
-                this.sensor.fetchSample(samples, 0);
+                samples = new float[((EV3UltrasonicSensor)this.sensor).sampleSize()];
+                ((EV3UltrasonicSensor)this.sensor).fetchSample(samples, 0);
                 act.setValue(samples);
                 break;
             case GET_DISTANCE:
